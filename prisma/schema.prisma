@@ -24,85 +24,85 @@ model user{
   intro        String?    @db.TinyText
   profile      String?    @db.Text
 
-  // post post[]
+  post post[]
 }
 
-// model post{
-//    id            BigInt     @id @default(autoincrement()) @db.UnsignedBigInt
-//    authorId      BigInt     @db.UnsignedBigInt @unique
-//    parentID      BigInt     @unique @db.UnsignedBigInt
-//    title         String     @db.VarChar(75)
-//    metalTitle    String     @db.VarChar(100)
-//    slug          String     @db.VarChar(100)
-//    summary       String     @db.TinyText
-//    published     String     @db.TinyText
-//    createdAt     DateTime   @default(now()) @db.Timestamp(0)
-//    updatedAt     DateTime   @default(now()) @db.Timestamp(0) @updatedAt
-//    publishedAt   DateTime   @default(now()) @db.Timestamp(0)
-//    context       String     @db.Text
+model post{
+   id            BigInt     @id @default(autoincrement()) @db.UnsignedBigInt
+   authorId      BigInt     @db.UnsignedBigInt
+   parentId      BigInt     @db.UnsignedBigInt
+   title         String     @db.VarChar(75)
+   metaTitle    String     @db.VarChar(100)
+   slug          String     @db.VarChar(100)
+   summary       String     @db.TinyText
+   published     String     @db.TinyText
+   createdAt     DateTime   @default(now()) @db.Timestamp(0)
+   updatedAt     DateTime   @default(now()) @db.Timestamp(0) @updatedAt
+   publishedAt   DateTime   @default(now()) @db.Timestamp(0)
+   content       String     @db.Text
 
-//    user        user     @relation(fields: [authorId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-//    post_comment post_comment[]
-//    post_tag     post_tag[] 
-//    post_category  post_category[]     
-// }
+   user        user     @relation(fields: [authorId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+   post_comment post_comment[]
+   post_tag     post_tag[] 
+   post_category  post_category[]     
+}
 
-// model post_comment{
-//    id            BigInt      @id @default(autoincrement()) @db.UnsignedBigInt
-//    postId        BigInt      @db.UnsignedBigInt @unique
-//    parentID      BigInt      @unique @db.UnsignedBigInt
-//    title         String      @db.VarChar(200)
-//    published     Int         @db.TinyInt
-//    createdAt     DateTime   @default(now()) @db.Timestamp(0)
-//    updatedAt     DateTime   @default(now()) @db.Timestamp(0) @updatedAt
+model post_comment{
+   id            BigInt      @id @default(autoincrement()) @db.UnsignedBigInt
+   postId        BigInt      @db.UnsignedBigInt
+   parentId      BigInt      @db.UnsignedBigInt
+   title         String      @db.VarChar(200)
+   published     Int         @db.TinyInt
+   createdAt     DateTime   @default(now()) @db.Timestamp(0)
+   updatedAt     DateTime   @default(now()) @db.Timestamp(0) @updatedAt
 
-//    post   post       @relation(fields: [postId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+   post   post       @relation(fields: [postId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
-// }
+}
 
-// model post_tag{
-//   id            BigInt         @id @default(autoincrement()) @db.UnsignedBigInt
-//   postId         BigInt        @unique @db.UnsignedBigInt
-//   tagId          BigInt        @unique @db.UnsignedBigInt
+model post_tag{
+  id            BigInt         @id @default(autoincrement()) @db.UnsignedBigInt
+  postId         BigInt        @db.UnsignedBigInt
+  tagId          BigInt        @db.UnsignedBigInt
   
-//   tag   tag      @relation(fields: [tagId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-//   post  post     @relation(fields: [postId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-// }
+  tag   tag      @relation(fields: [tagId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  post  post     @relation(fields: [postId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+}
 
-// model tag{
-//   id            BigInt      @id @default(autoincrement()) @db.UnsignedBigInt
-//   title         String      @db.VarChar(75)
-//   metaTitle     String      @db.VarChar(100)
-//   slug          String      @db.VarChar(100)
-//   content       String      @db.Text
+model tag{
+  id            BigInt      @id @default(autoincrement()) @db.UnsignedBigInt
+  title         String      @db.VarChar(75)
+  metaTitle     String      @db.VarChar(100)
+  slug          String      @db.VarChar(100)
+  content       String      @db.Text
 
-//   post_tag   post_tag[]
-// }
+  post_tag   post_tag[]
+}
 
-// model post_category{
-//   id             BigInt        @id @default(autoincrement()) @db.UnsignedBigInt
-//   postId         BigInt        @unique @db.UnsignedBigInt
-//   categoryId     BigInt        @unique @db.UnsignedBigInt
+model post_category{
+  id             BigInt        @id @default(autoincrement()) @db.UnsignedBigInt
+  postId         BigInt        @db.UnsignedBigInt
+  categoryId     BigInt        @db.UnsignedBigInt
 
-//   post  post     @relation(fields: [postId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-//   category category  @relation(fields: [categoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-// }
+  post  post     @relation(fields: [postId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  category category  @relation(fields: [categoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+}
 
-// model category{
-//   id            BigInt      @id @default(autoincrement()) @db.UnsignedBigInt
-//   parentId      BigInt      @unique @db.UnsignedBigInt
-//   title         String      @db.VarChar(75)
-//   metaTitle     String      @db.VarChar(100)
-//   slug          String      @db.VarChar(100)
-//   context       String      @db.Text
+model category{
+  id            BigInt      @id @default(autoincrement()) @db.UnsignedBigInt
+  parentId      BigInt      @db.UnsignedBigInt
+  title         String      @db.VarChar(75)
+  metaTitle     String      @db.VarChar(100)
+  slug          String      @db.VarChar(100)
+  content       String      @db.Text
 
-//   post_category  post_category[]
-// }
+  post_category  post_category[]
+}
 
 
-// model post_meta{
-//    id            BigInt      @id @default(autoincrement()) @db.UnsignedBigInt
-//    postId        BigInt      @unique @db.UnsignedBigInt
-//    key           String      @db.VarChar(50)
-//    context       String      @db.Text
-// }
+model post_meta{
+   id            BigInt      @id @default(autoincrement()) @db.UnsignedBigInt
+   postId        BigInt      @db.UnsignedBigInt
+   key           String      @db.VarChar(50)
+   content       String      @db.Text
+}
