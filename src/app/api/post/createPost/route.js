@@ -60,8 +60,8 @@ export async function POST(req, res) {
       data: body,
     });
 
-    return NextResponse.json({ data: Data });
+    return NextResponse.json({status: "success", data: Data });
   } catch (err) {
-    return NextResponse.json({ status: "failed", data: err.message });
+    return NextResponse.json({ status: "failed", data: err.toString() });
   }
 }

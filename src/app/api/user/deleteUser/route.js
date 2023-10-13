@@ -12,7 +12,7 @@ export async function POST(req, res){
             const prisma = new PrismaClient();
             const {searchParams} = new URL(req.url);
             let id = searchParams.get("id");
-            const result = await prisma.user.delete({
+            await prisma.user.delete({
                     where: {id: id}
             }
             );
