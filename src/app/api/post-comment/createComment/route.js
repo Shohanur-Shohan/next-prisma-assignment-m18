@@ -3,18 +3,18 @@ import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function POST(req, res) {
-  BigInt.prototype.toJSON = function() {
-    return this.toString();
-  }
-
+    BigInt.prototype.toJSON = function() {
+      return this.toString();
+    }
   try {
     const prisma = new PrismaClient();
     const body = await req.json();
-    const Data = await prisma.post.create({
+    // console.log(body);
+    const result = await prisma.post_comment.create({
       data: body,
     });
 
-    return NextResponse.json({status: "success", data: Data });
+    return NextResponse.json({status: "success", data: result });
   } catch (err) {
     return NextResponse.json({ status: "failed", data: err.toString() });
   }
